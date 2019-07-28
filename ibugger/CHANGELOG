@@ -1,0 +1,111 @@
+Unified iBuffer v0.1.0 - 01st November 2009 - released by TheSeven
+------------------------------------------------------------------
+
+* Added iPod Nano 4G support
+
+* Unified device interface, causing lots of interface and driver changes
+
+
+v0.1j - 30th September 2009 - released by TheSeven
+--------------------------------------------------
+
+* Fixed a bug that caused lots of lockups, especially with heavy console load
+
+
+v0.1i - 16th September 2009 - released by TheSeven
+--------------------------------------------------
+
+* Finally fixed the Type-2 LCD driver
+
+* Increased USB read timeout to account for slower LCD driver
+
+
+v0.1h - 10th September 2009 - released by TheSeven
+--------------------------------------------------
+
+* Finally fixed the Type-2 LCD driver (edit: was a fluke again)
+
+* Re-added some missing files
+
+
+v0.1g - 07th September 2009 - released by TheSeven
+--------------------------------------------------
+
+* The Core now works when booted through iLoader
+
+* Fixed the C API from the ASM side, the C side is still broken.
+
+* Some other minor fixes 
+
+* Added the "video" scripts for donny
+
+* Hopefully fixed the Type-2 LCD driver
+
+* Added some payloads as examples. Caution, they're partly broken.
+
+
+v0.1f - 22th July 2009 - released by TheSeven
+---------------------------------------------
+
+* Added target debugging console. The python client is still read-only,
+  but the core supports a bidirectional console.
+
+* Some lot of debugger core bugfixes
+
+* Type-2 LCDs still don't work, and they won't,
+  until someone who got one fixes that.
+
+
+v0.1e - 18th July 2009 - released by TheSeven
+---------------------------------------------
+
+* Finally a working iBugger Core, but still very limited functionality
+
+* A lot of refactoring
+
+* I2C support
+
+* Implemented support for type-2 displays, but they still don't work properly
+
+
+v0.1d - 15th July 2009 - released by TheSeven
+---------------------------------------------
+
+* Fixed a bug with uploading, that the first 512 bytes were repeated
+
+* Added a fancy logo, now that we got the LCD working
+
+
+v0.1c - 15th July 2009 - released by TheSeven
+---------------------------------------------
+
+* Added a quirk to get around a libusb bug:
+  "usb.USBError: error submitting URB: Cannot allocate memory"
+
+
+v0.1b - 13th July 2009 - released by TheSeven
+---------------------------------------------
+
+* Finally a working feedback pipe
+
+* Implemented downloads
+
+* Almost rewrote python script
+
+
+v0.1a - 12th July 2009 - released by Dave Chapman
+-------------------------------------------------
+
+* Minor changes to loader.asm to assemble with older versions of arm-elf.as
+
+* First version of bin2htm.c - generic utility to inject code into a note
+
+* Change of license of loader.asm and upload.py to GPLv2 or later with 
+  agreement from TheSeven - to make future integration of this or any derived 
+  code into Linux or Rockbox possible.
+
+
+v0.1 - 12th July 2009 - released by TheSeven
+--------------------------------------------
+
+* Initial release by TheSeven
