@@ -10,7 +10,7 @@ LD      = $(CROSS)ld
 NM      = $(CROSS)nm
 OBJCOPY = $(CROSS)objcopy
 CFLAGS += -Os -W -Wall -ffreestanding -fomit-frame-pointer
-LDFLAGS+= -T$(LS) $(LIBGCC)
+LDFLAGS+= -T$(LS)
 
 BIN   = $(NAME).bin
 ELF   = $(NAME).elf
@@ -19,10 +19,8 @@ OBJS  = flasher.o
 
 all: $(BIN)
 
-$(ELF): $(LS)
-
-$(ELF): $(OBJS)
-	$(LD) -Map $(NAME).map -o $@ $^ $(LIBS) $(LDFLAGS)
+$(ELF): $(OBJS) $(LS)
+	$(LD) -Map $(NAME).map -o $@ $(OBJS) $(LIBS) $(LDFLAGS)
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@

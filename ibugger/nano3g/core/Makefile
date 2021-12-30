@@ -19,10 +19,8 @@ OBJS  = init.o main.o strlen.o sprintf.o
 
 all: $(BIN)
 
-$(ELF): $(LS)
-
-$(ELF): $(OBJS)
-	$(LD) -Map $(NAME).map -o $@ $^ $(LIBS) $(LDFLAGS)
+$(ELF): $(OBJS) $(LS)
+	$(LD) -Map $(NAME).map -o $@ $(OBJS) $(LIBS) $(LDFLAGS)
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@
